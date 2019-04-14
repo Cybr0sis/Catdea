@@ -1,0 +1,89 @@
+<idea-plugin>
+    <id>com.cybrosis.catdea</id>
+    <name>Catdea</name>
+    <version>1.0</version>
+    <vendor email="cybrosis.dev@gmail.com" url="https://github.com/Cybr0sis/Catdea">Cybrosis</vendor>
+
+    <description><![CDATA[
+      <p>Catdea Plugin intended to match Android Logcat log entries with the source code that emit these entries,
+      thereby providing navigation and interactivity, in order to simplify debugging or reverse engineering.</p>
+      <p>Plugin uses pre-compile-time calculations to identify log emitters in the source code,
+      thus, no RegExp patterns required.</p>
+    ]]></description>
+
+    <change-notes><![CDATA[
+      <p>1.0: Initial release</p>
+        <ul>
+          <li>Log files support</li>
+          <li>Flexible log format</li>
+          <li>Navigation from log entry to the code that emit it, and vice versa</li>
+          <li>Syntax highlighting and colors settings available</li>
+          <li>Highlighting of log entries</li>
+          <li>Unused (unmatched) log entries highlighting</li>
+          <li>Folding support</li>
+          <li>Log wrappers support</li>
+          <li>Format strings support</li>
+          <li>Comment/uncomment log entry</li>
+        </ul>
+    ]]>
+    </change-notes>
+
+    <idea-version since-build="182.0"/>
+
+    <depends>com.intellij.modules.java</depends>
+    <depends>org.jetbrains.android</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <projectService serviceInterface="com.cybrosis.catdea.CatdeaService"
+                        serviceImplementation="com.cybrosis.catdea.CatdeaServiceImpl"/>
+
+        <fileTypeFactory
+                implementation="com.cybrosis.catdea.files.CatdeaFileTypeFactory"/>
+
+        <lang.parserDefinition
+                language="CatdeaLanguage"
+                implementationClass="com.cybrosis.catdea.lang.CatdeaParserDefinition"/>
+
+        <lang.syntaxHighlighterFactory
+                language="CatdeaLanguage"
+                implementationClass="com.cybrosis.catdea.highlighting.syntax.CatdeaSyntaxHighlighterFactory"/>
+
+        <lang.commenter
+                language="CatdeaLanguage"
+                implementationClass="com.cybrosis.catdea.lang.CatdeaCommenter"/>
+
+        <lang.foldingBuilder
+                language="CatdeaLanguage"
+                implementationClass="com.cybrosis.catdea.folding.CatdeaTagFoldingBuilder"/>
+
+        <lang.foldingBuilder
+                language="CatdeaLanguage"
+                implementationClass="com.cybrosis.catdea.folding.CatdeaPackageFoldingBuilder"/>
+
+        <highlightUsagesHandlerFactory
+                implementation="com.cybrosis.catdea.highlighting.usages.CatdeaHighlightUsagesFactory"/>
+
+        <colorSettingsPage
+                implementation="com.cybrosis.catdea.settings.CatdeaColorSettingsPage"/>
+
+        <annotator
+                language="CatdeaLanguage"
+                implementationClass="com.cybrosis.catdea.annotators.CatdeaLogLevelAnnotator"/>
+
+        <annotator
+                language="CatdeaLanguage"
+                implementationClass="com.cybrosis.catdea.annotators.CatdeaUnusedAnnotator"/>
+
+        <codeInsight.lineMarkerProvider
+                language="JAVA"
+                implementationClass="com.cybrosis.catdea.markers.CatdeaGotoLogMarkerProvider"/>
+
+        <fileBasedIndex
+                order="last"
+                implementation="com.cybrosis.catdea.index.CatdeaIndex"/>
+
+        <projectSdkSetupValidator
+                implementation="com.cybrosis.catdea.validators.CatdeaSdkSetupValidator"/>
+    </extensions>
+
+</idea-plugin>

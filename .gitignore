@@ -1,0 +1,6 @@
+# IntelliJ
+.idea/
+out/
+
+# Package Files #
+/*.jar
