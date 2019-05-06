@@ -25,13 +25,14 @@ import javax.swing.*;
  */
 public class CatdeaIcons {
     public static final Icon FILE_TYPE = IconLoader.getIcon("/icons/file.svg");
+    public static final Icon FOLDER = IconLoader.getIcon("/icons/folder.svg");
 
-        public final static class Gutter {
-            public static final Icon ICON = IconLoader.getIcon("icons/gutter.svg");
-            public static final Icon NONE = IconLoader.getIcon("icons/gutter_none.svg");
+    public final static class Gutter {
+        public static final Icon ICON = IconLoader.getIcon("icons/gutter.svg");
+        public static final Icon NONE = IconLoader.getIcon("icons/gutter_none.svg");
 
-            public static Icon getIcon(boolean isNone) {
-                return isNone ? NONE : ICON;
-            }
+        public static Icon getIcon(boolean isNone) {
+            return isNone ? NONE : ICON;
         }
     }
+}

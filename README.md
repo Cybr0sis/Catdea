@@ -32,6 +32,10 @@ will be recognized as log emitters:\
 
 * Comment/uncomment log entry
 
+* \[NEW!\] Logs in Project-view are grouped\
+![Project view screenshot](images/project_view.png)
+
 Changelog
 ------------
+* 1.0.1 Added logs in Project-view
 * 1.0 Initial release
