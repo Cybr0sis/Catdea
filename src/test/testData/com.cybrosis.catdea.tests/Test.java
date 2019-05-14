@@ -38,6 +38,14 @@ public class Test extends Base {
         Logger.info(TAG, String.format("boo(%s)", x));
     }
 
+    private Object o = new Object() {
+        @Override
+        public String toString() {
+            final String s = super.toString();
+            Log.d(TAG, "o = " + s);
+            return s;
+        }
+    };
     //endregion
 
     //region Invalid

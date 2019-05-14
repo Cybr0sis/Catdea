@@ -32,42 +32,6 @@ import java.util.*;
  * @author cybrosis
  */
 class CatdeaIndexer extends PsiDataIndexer<String, Collection<CatdeaIndexEntry>> {
-
-    private static class JavaInCodeBlockVisitor extends JavaElementVisitor {
-        private final PsiElementVisitor delegate;
-
-        private JavaInCodeBlockVisitor(@NotNull PsiElementVisitor delegate) {
-            this.delegate = delegate;
-        }
-
-        @Override
-        public void visitJavaFile(PsiJavaFile file) {
-            for (PsiClass psiClass : file.getClasses()) {
-                visitClass(psiClass);
-            }
-        }
-
-        @Override
-        public void visitClass(PsiClass psiClass) {
-            for (PsiMethod method : psiClass.getMethods()) {
-                visitMethod(method);
-            }
-        }
-
-        @Override
-        public void visitMethod(PsiMethod method) {
-            final PsiCodeBlock block = method.getBody();
-            if (block != null) {
-               visitCodeBlock(block);
-            }
-        }
-
-        @Override
-        public void visitCodeBlock(PsiCodeBlock block) {
-            block.acceptChildren(delegate);
-        }
-    }
-
     @NotNull
     @Override
     public Map<String, Collection<CatdeaIndexEntry>> map(@NotNull PsiFile psiFile) {
@@ -129,7 +93,7 @@ class CatdeaIndexer extends PsiDataIndexer<String, Collection<CatdeaIndexEntry>>
     private Set<CatdeaSliceCaller> collectRoots(@NotNull PsiFile psiFile) {
         final Set<CatdeaSliceCaller> result = new HashSet<>();
 
-        psiFile.accept(new JavaInCodeBlockVisitor(new JavaRecursiveElementVisitor() {
+        psiFile.accept(new JavaRecursiveElementVisitor() {
             @Override
             public void visitLiteralExpression(PsiLiteralExpression expression) {
                 super.visitLiteralExpression(expression);
@@ -145,7 +109,7 @@ class CatdeaIndexer extends PsiDataIndexer<String, Collection<CatdeaIndexEntry>>
 
                 result.add(root);
             }
-        }));
+        });
 
         return result;
     }

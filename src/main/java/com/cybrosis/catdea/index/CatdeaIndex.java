@@ -54,7 +54,7 @@ public class CatdeaIndex extends FileBasedIndexExtension<String, Collection<Catd
         return Arrays.stream(string)
                      .map(ExpressionUtil::removeStringFormat)
                      .flatMap(it -> StringUtil.getWordsIn(it).stream())
-                     .filter(x -> x.length() > 1 && Character.isAlphabetic(x.charAt(0)))
+                     .filter(x -> x.length() > 0 && Character.isAlphabetic(x.charAt(0)))
                      .collect(Collectors.toCollection(() -> new TreeSet<>(
                              Comparator.comparingInt(String::length).reversed().thenComparing(String::compareTo)
                      )));
@@ -92,7 +92,7 @@ public class CatdeaIndex extends FileBasedIndexExtension<String, Collection<Catd
 
     @Override
     public int getVersion() {
-        return 1;
+        return 2;
     }
 
     @NotNull

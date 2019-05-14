@@ -16,20 +16,26 @@
 
 package com.cybrosis.catdea.index;
 
+import com.android.ddmlib.Log;
 import com.cybrosis.catdea.MockProjectDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.testFramework.LightProjectDescriptor;
 import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
 import com.intellij.util.indexing.FileBasedIndex;
+import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
 import java.util.*;
 
+import static com.android.ddmlib.Log.LogLevel.DEBUG;
+import static com.android.ddmlib.Log.LogLevel.INFO;
+
 /**
  * @author cybrosis
  */
+@SuppressWarnings("RegExpRedundantEscape")
 public class CatdeaIndexTest extends LightCodeInsightFixtureTestCase {
 
     @NotNull
@@ -58,11 +64,26 @@ public class CatdeaIndexTest extends LightCodeInsightFixtureTestCase {
         myFixture.configureByFile(getTestDataPath() + "/Test.java");
 
         final Map<String, List<CatdeaIndexEntry>> actual = collectIndexes(getProject());
-        assertEquals(new TreeSet<>(Arrays.asList("bar", "boo", "foo")), actual.keySet());
+        assertEquals(new TreeSet<>(Arrays.asList("bar", "boo", "foo", "o")), actual.keySet());
 
-        assertEquals(1, actual.get("bar").size());
-        assertEquals(1, actual.get("boo").size());
-        assertEquals(1, actual.get("foo").size());
+        assertEntry(assertSingle(actual.get("bar")), INFO, "\\[Test\\] bar\\((.*)\\)", "PRETAG");
+        assertEntry(assertSingle(actual.get("boo")), INFO, "\\[Test\\] boo\\((.*)\\)", "PRETAG");
+        assertEntry(assertSingle(actual.get("foo")), INFO, "foo \\= (.*)", "Test2");
+        assertEntry(assertSingle(actual.get("o")), DEBUG, "o \\= (.*)", "Test");
+    }
+
+    private static <T> T assertSingle(@NotNull List<T> actual) {
+        assertEquals(1, actual.size());
+        return actual.get(0);
+    }
+
+    private static void assertEntry(@NotNull CatdeaIndexEntry actual,
+                                    @NotNull Log.LogLevel level,
+                                    @NotNull @Language("RegExp") String msgPattern,
+                                    @NotNull @Language("RegExp") String tagPattern) {
+        assertEquals(level, actual.level);
+        assertEquals(msgPattern, actual.msgPattern);
+        assertEquals(tagPattern, actual.tagPattern);
     }
 
     private static Map<String, List<CatdeaIndexEntry>> collectIndexes(@NotNull Project project) {
