@@ -21,6 +21,8 @@ import com.cybrosis.catdea.CatdeaService;
 import com.cybrosis.catdea.files.CatdeaFileType;
 import com.cybrosis.catdea.icons.CatdeaIcons;
 import com.cybrosis.catdea.lang.psi.PsiCatdeaFile;
+import com.intellij.ide.SelectInTarget;
+import com.intellij.ide.impl.ProjectViewSelectInTarget;
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.projectView.ProjectViewNode;
 import com.intellij.ide.projectView.TreeStructureProvider;
@@ -173,6 +175,27 @@ public class CatdeaProjectViewPane extends ProjectViewPane {
             @Override
             protected AbstractTreeNode createRoot(@NotNull Project project, @NotNull ViewSettings settings) {
                 return new RootNode(project, settings);
+            }
+        };
+    }
+
+    @NotNull
+    @Override
+    public SelectInTarget createSelectInTarget() {
+        return new ProjectViewSelectInTarget(myProject) {
+            @Override
+            public String toString() {
+                return getTitle();
+            }
+
+            @Override
+            public String getMinorViewId() {
+                return getId();
+            }
+
+            @Override
+            public float getWeight() {
+                return CatdeaProjectViewPane.this.getWeight();
             }
         };
     }
