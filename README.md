@@ -7,6 +7,11 @@ thereby providing navigation and interactivity, in order to simplify debugging o
 Plugin uses pre-compile-time calculations to identify log emitters in the source code, 
 thus, no RegExp patterns required.
 
+### Installation
+Install from [JetBrains Plugins Repository](https://plugins.jetbrains.com/plugin/12241-catdea) or 
+get from [latest release](https://github.com/Cybr0sis/Catdea/releases/latest) and choose it in IDE 
+(File &rarr; Settings &rarr; Plugins &rarr; Install Plugin from Disk).
+
 Features
 ------------
 * Log files support
@@ -37,5 +42,5 @@ will be recognized as log emitters:\
 
 Changelog
 ------------
-* 1.0.1 Added logs in Project-view
+* 1.0.3 Some bugs fixed
 * 1.0 Initial release
