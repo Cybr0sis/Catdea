@@ -94,7 +94,7 @@
 
         <treeStructureProvider
                 order="last"
-                implementation="com.cybrosis.catdea.navigator.CatdeaProjectViewPane$CatdeaStructureProvider"/>
+                implementation="com.cybrosis.catdea.navigator.CatdeaProjectViewTreeProvider"/>
     </extensions>
 
 </idea-plugin>
