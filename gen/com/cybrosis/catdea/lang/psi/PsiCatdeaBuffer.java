@@ -16,37 +16,16 @@
 package com.cybrosis.catdea.lang.psi;
 
 import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementVisitor;
 import org.jetbrains.annotations.NotNull;
 
-public class PsiCatdeaVisitor extends PsiElementVisitor {
+import java.util.List;
 
-  public void visitBuffer(@NotNull PsiCatdeaBuffer o) {
-    visitPsiElement(o);
-  }
+public interface PsiCatdeaBuffer extends PsiElement {
 
-  public void visitEntry(@NotNull PsiCatdeaEntry o) {
-    visitPsiElement(o);
-  }
+  @NotNull
+  List<PsiCatdeaEntry> getEntryList();
 
-  public void visitHeader(@NotNull PsiCatdeaHeader o) {
-    visitPsiElement(o);
-  }
-
-  public void visitLevel(@NotNull PsiCatdeaLevel o) {
-    visitPsiElement(o);
-  }
-
-  public void visitMessage(@NotNull PsiCatdeaMessage o) {
-    visitPsiElement(o);
-  }
-
-  public void visitTag(@NotNull PsiCatdeaTag o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPsiElement(@NotNull PsiElement o) {
-    visitElement(o);
-  }
+  @NotNull
+  PsiElement getBuffer();
 
 }

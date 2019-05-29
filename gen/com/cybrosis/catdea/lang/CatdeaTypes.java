@@ -15,15 +15,16 @@
  */
 package com.cybrosis.catdea.lang;
 
-import com.intellij.psi.tree.IElementType;
-import com.intellij.psi.PsiElement;
-import com.intellij.lang.ASTNode;
-import com.cybrosis.catdea.lang.psi.CatdeaElementType;
 import com.cybrosis.catdea.lang.lexer.CatdeaTokenType;
+import com.cybrosis.catdea.lang.psi.CatdeaElementType;
 import com.cybrosis.catdea.lang.psi.impl.*;
+import com.intellij.lang.ASTNode;
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.tree.IElementType;
 
 public interface CatdeaTypes {
 
+  IElementType BUFFER = new CatdeaElementType("BUFFER");
   IElementType ENTRY = new CatdeaElementType("ENTRY");
   IElementType HEADER = new CatdeaElementType("HEADER");
   IElementType LEVEL = new CatdeaElementType("LEVEL");
@@ -43,7 +44,10 @@ public interface CatdeaTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == ENTRY) {
+      if (type == BUFFER) {
+        return new PsiCatdeaBufferImpl(node);
+      }
+      else if (type == ENTRY) {
         return new PsiCatdeaEntryImpl(node);
       }
       else if (type == HEADER) {

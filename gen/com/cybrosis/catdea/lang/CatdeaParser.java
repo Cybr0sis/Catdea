@@ -15,15 +15,16 @@
  */
 package com.cybrosis.catdea.lang;
 
+import com.intellij.lang.ASTNode;
+import com.intellij.lang.LightPsiParser;
 import com.intellij.lang.PsiBuilder;
 import com.intellij.lang.PsiBuilder.Marker;
-import static com.cybrosis.catdea.lang.CatdeaTypes.*;
-import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
+import com.intellij.lang.PsiParser;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.IFileElementType;
-import com.intellij.lang.ASTNode;
-import com.intellij.lang.PsiParser;
-import com.intellij.lang.LightPsiParser;
+
+import static com.cybrosis.catdea.lang.CatdeaTypes.*;
+import static com.intellij.lang.parser.GeneratedParserUtilBase.*;
 
 @SuppressWarnings({"SimplifiableIfStatement", "UnusedAssignment"})
 public class CatdeaParser implements PsiParser, LightPsiParser {
@@ -51,6 +52,31 @@ public class CatdeaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // BUFFER line*
+  public static boolean buffer(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "buffer")) return false;
+    if (!nextTokenIs(b, BUFFER)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, BUFFER, null);
+    r = consumeToken(b, BUFFER);
+    p = r; // pin = 1
+    r = r && buffer_1(b, l + 1);
+    exit_section_(b, l, m, r, p, null);
+    return r || p;
+  }
+
+  // line*
+  private static boolean buffer_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "buffer_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!line(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "buffer_1", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
   // header message
   public static boolean entry(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "entry")) return false;
@@ -64,15 +90,24 @@ public class CatdeaParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // entry*
+  // (buffer | line)*
   static boolean file(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "file")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!entry(b, l + 1)) break;
+      if (!file_0(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "file", c)) break;
     }
     return true;
+  }
+
+  // buffer | line
+  private static boolean file_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "file_0")) return false;
+    boolean r;
+    r = buffer(b, l + 1);
+    if (!r) r = line(b, l + 1);
+    return r;
   }
 
   /* ********************************************************** */
@@ -142,6 +177,16 @@ public class CatdeaParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, LEVEL_TOKEN);
     exit_section_(b, m, LEVEL, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // entry | MESSAGE_TOKEN
+  static boolean line(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "line")) return false;
+    boolean r;
+    r = entry(b, l + 1);
+    if (!r) r = consumeToken(b, MESSAGE_TOKEN);
     return r;
   }
 

@@ -21,9 +21,9 @@ package com.cybrosis.catdea.lang;
 import com.intellij.lexer.FlexLexer;
 import com.intellij.psi.tree.IElementType;
 
+import static com.cybrosis.catdea.lang.CatdeaTypes.*;
 import static com.intellij.psi.TokenType.BAD_CHARACTER;
 import static com.intellij.psi.TokenType.WHITE_SPACE;
-import static com.cybrosis.catdea.lang.CatdeaTypes.*;
 
 
 /**
@@ -41,8 +41,9 @@ public class _CatdeaLexer implements FlexLexer {
 
   /** lexical states */
   public static final int YYINITIAL = 0;
-  public static final int IN_TAG = 2;
-  public static final int IN_MESSAGE = 4;
+  public static final int IN_ENTRY = 2;
+  public static final int IN_TAG = 4;
+  public static final int IN_MESSAGE = 6;
 
   /**
    * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -51,7 +52,7 @@ public class _CatdeaLexer implements FlexLexer {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = { 
-     0,  1,  2,  2,  3, 3
+     0,  1,  2,  2,  3,  3,  4, 4
   };
 
   /** 
@@ -83,14 +84,16 @@ public class _CatdeaLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\4\0\1\1\1\2\1\3\3\1\1\4\1\5\2\6"+
-    "\1\3\3\7\1\3\3\0\2\10\5\0\1\11\1\12"+
-    "\3\0\1\4\1\5\1\13\2\0\1\12\3\0\1\12"+
-    "\1\0\1\12\2\0\1\12\1\0\1\14\4\0\1\14"+
-    "\1\0";
+    "\4\0\1\1\1\2\1\3\1\2\1\3\1\4\2\2"+
+    "\1\5\1\6\3\5\1\7\2\5\3\1\3\0\1\4"+
+    "\6\0\2\10\4\0\1\11\1\4\1\0\1\4\5\0"+
+    "\1\12\3\0\1\7\1\13\2\4\1\0\1\4\5\0"+
+    "\1\12\2\4\1\0\2\14\3\0\1\12\2\0\1\12"+
+    "\3\0\1\12\2\0\1\15\2\0\1\16\2\0\1\16"+
+    "\1\15\1\0\2\16";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[57];
+    int [] result = new int[93];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -115,17 +118,21 @@ public class _CatdeaLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\20\0\40\0\60\0\100\0\120\0\100\0\140"+
-    "\0\160\0\200\0\100\0\220\0\240\0\260\0\240\0\300"+
-    "\0\100\0\320\0\300\0\340\0\360\0\u0100\0\u0110\0\100"+
-    "\0\200\0\u0120\0\u0130\0\240\0\u0140\0\100\0\u0100\0\u0150"+
-    "\0\u0160\0\u0170\0\u0180\0\u0190\0\100\0\u01a0\0\u01b0\0\u01c0"+
-    "\0\u01d0\0\u01e0\0\u01f0\0\u0200\0\u0210\0\u0220\0\u0230\0\u0240"+
-    "\0\u0250\0\u0260\0\u0270\0\u0280\0\u0290\0\u02a0\0\u02b0\0\u02a0"+
-    "\0\u02c0";
+    "\0\0\0\20\0\40\0\60\0\100\0\120\0\140\0\160"+
+    "\0\200\0\220\0\240\0\260\0\120\0\120\0\300\0\320"+
+    "\0\340\0\120\0\360\0\u0100\0\u0110\0\120\0\u0120\0\160"+
+    "\0\260\0\u0130\0\u0140\0\u0150\0\u0160\0\u0170\0\u0180\0\u0190"+
+    "\0\u01a0\0\u01b0\0\120\0\340\0\u01c0\0\360\0\u01d0\0\120"+
+    "\0\u01e0\0\u01f0\0\u0200\0\u0210\0\u0220\0\u0230\0\u0240\0\u0250"+
+    "\0\u01a0\0\u0260\0\u0270\0\u0280\0\u0290\0\120\0\u02a0\0\u02b0"+
+    "\0\u02c0\0\u02d0\0\u02e0\0\u02f0\0\u0300\0\u0310\0\u0320\0\u0330"+
+    "\0\u0340\0\u0350\0\u0360\0\120\0\160\0\u0370\0\u0380\0\u0390"+
+    "\0\u03a0\0\u03b0\0\u03c0\0\u03d0\0\u03e0\0\u03f0\0\u0400\0\u0410"+
+    "\0\u0420\0\u0430\0\u0440\0\u0450\0\u0460\0\u0470\0\u0480\0\u0490"+
+    "\0\u04a0\0\u0480\0\u04b0\0\u04c0\0\u04d0";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[57];
+    int [] result = new int[93];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -148,33 +155,57 @@ public class _CatdeaLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\5\4\6\1\5\1\6\1\7\1\5\1\10\2\5"+
-    "\1\11\1\12\1\5\1\13\1\5\4\6\1\5\1\6"+
-    "\1\7\1\14\1\10\2\5\1\11\1\12\1\5\1\13"+
-    "\5\15\1\16\1\15\1\17\10\15\1\20\2\21\1\22"+
-    "\3\20\1\23\10\20\21\0\4\6\1\0\1\6\12\0"+
-    "\4\24\1\0\1\24\2\0\1\25\1\26\6\0\4\27"+
-    "\1\0\1\27\1\30\21\0\1\31\1\0\1\32\1\0"+
-    "\2\31\1\0\1\14\3\33\14\14\5\34\1\35\13\34"+
-    "\4\0\1\34\1\36\11\34\1\20\3\0\14\20\2\0"+
-    "\1\21\16\0\4\24\1\0\1\24\2\0\1\37\7\0"+
-    "\4\24\1\40\1\24\2\0\1\41\1\42\16\0\1\37"+
-    "\7\0\4\27\1\0\1\27\22\0\1\43\3\0\2\43"+
-    "\2\0\4\44\1\0\1\44\11\0\1\34\4\0\1\34"+
-    "\1\45\11\34\11\0\1\46\7\0\4\24\1\0\1\24"+
-    "\2\0\1\47\1\26\16\0\1\50\17\0\1\43\1\0"+
-    "\1\32\1\0\2\43\1\0\1\14\4\44\1\14\1\44"+
-    "\11\14\11\0\1\51\7\0\4\24\1\0\1\24\2\0"+
-    "\1\52\1\53\16\0\1\54\13\0\1\55\13\0\4\24"+
-    "\1\0\1\24\2\0\1\52\1\26\16\0\1\56\7\0"+
-    "\4\57\1\0\1\57\2\0\1\37\17\0\1\60\17\0"+
-    "\1\61\7\0\4\57\1\0\1\57\2\0\1\62\17\0"+
-    "\1\63\17\0\1\37\1\64\16\0\1\65\21\0\1\66"+
-    "\15\0\1\67\13\0\1\40\23\0\1\70\17\0\1\71"+
-    "\7\0\4\57\1\0\1\57\11\0";
+    "\1\6\4\7\1\6\1\7\11\6\1\10\3\7\1\11"+
+    "\1\10\1\11\1\10\1\12\1\10\1\13\1\10\1\14"+
+    "\3\10\1\15\4\7\1\15\1\7\1\16\1\15\1\17"+
+    "\2\15\1\20\1\21\1\15\1\22\5\23\1\24\12\23"+
+    "\1\25\2\26\1\27\14\25\21\0\4\7\1\0\1\7"+
+    "\11\0\1\30\3\0\10\30\1\31\4\30\3\7\1\11"+
+    "\1\30\1\11\5\30\1\31\3\30\1\12\3\32\10\12"+
+    "\1\33\3\12\1\30\3\0\6\30\1\34\1\30\1\31"+
+    "\4\30\3\35\1\36\1\30\2\36\4\30\1\31\3\30"+
+    "\1\0\4\37\1\0\1\37\2\0\1\40\1\41\6\0"+
+    "\4\42\1\0\1\42\1\43\21\0\1\44\1\0\1\45"+
+    "\1\0\2\44\1\0\5\46\1\47\13\46\4\0\1\46"+
+    "\1\50\11\46\1\25\3\0\14\25\2\0\1\26\16\0"+
+    "\4\51\1\0\1\51\11\0\1\12\3\52\1\53\1\12"+
+    "\2\53\4\12\1\33\3\12\1\30\3\0\6\30\1\54"+
+    "\1\30\1\31\3\30\5\55\1\56\12\55\1\57\3\55"+
+    "\1\57\1\60\12\57\1\0\4\37\1\0\1\37\2\0"+
+    "\1\61\7\0\4\37\1\62\1\37\2\0\1\63\1\64"+
+    "\16\0\1\61\7\0\4\42\1\0\1\42\22\0\1\65"+
+    "\3\0\2\65\1\0\1\46\4\0\1\46\1\66\11\46"+
+    "\1\67\4\51\1\67\1\51\11\67\1\55\4\70\1\56"+
+    "\1\70\11\55\1\53\3\71\1\53\1\72\12\53\1\30"+
+    "\3\0\6\30\1\73\1\30\1\31\3\30\5\55\1\74"+
+    "\13\55\4\0\1\55\1\0\11\55\1\57\3\55\1\57"+
+    "\1\75\13\57\3\0\1\30\1\57\1\30\11\57\11\0"+
+    "\1\76\7\0\4\37\1\0\1\37\2\0\1\77\1\41"+
+    "\16\0\1\100\17\0\1\65\1\0\1\45\1\0\2\65"+
+    "\1\0\1\67\3\32\14\67\1\101\4\70\1\102\1\70"+
+    "\11\101\1\55\4\70\1\74\1\70\11\55\1\53\3\32"+
+    "\1\12\1\53\1\12\11\53\1\30\3\0\6\30\1\103"+
+    "\1\30\1\31\3\30\1\55\4\0\1\55\1\104\11\55"+
+    "\1\57\3\0\1\30\1\57\1\105\11\57\11\0\1\106"+
+    "\7\0\4\37\1\0\1\37\2\0\1\107\1\110\16\0"+
+    "\1\111\6\0\1\101\3\71\1\101\1\102\13\101\3\32"+
+    "\1\67\1\101\1\67\11\101\1\30\3\0\6\30\1\112"+
+    "\1\30\1\31\3\30\5\0\1\113\13\0\4\37\1\0"+
+    "\1\37\2\0\1\107\1\41\16\0\1\114\7\0\4\115"+
+    "\1\0\1\115\2\0\1\61\6\0\1\30\3\0\6\30"+
+    "\1\116\1\30\1\31\3\30\11\0\1\117\17\0\1\120"+
+    "\7\0\4\115\1\0\1\115\2\0\1\121\6\0\1\30"+
+    "\3\0\6\30\1\122\1\30\1\31\3\30\11\0\1\123"+
+    "\17\0\1\61\1\124\16\0\1\125\6\0\1\30\3\0"+
+    "\6\30\1\126\1\30\1\31\3\30\13\0\1\127\15\0"+
+    "\1\130\13\0\1\62\12\0\1\126\3\0\10\126\1\131"+
+    "\3\126\11\0\1\132\17\0\1\133\6\0\1\126\3\35"+
+    "\1\134\1\126\2\134\4\126\1\131\3\126\1\0\4\115"+
+    "\1\0\1\115\11\0\1\134\3\55\1\134\1\135\13\134"+
+    "\3\0\1\126\1\134\1\126\11\134";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[720];
+    int [] result = new int[1248];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -212,13 +243,15 @@ public class _CatdeaLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\4\0\1\11\1\1\1\11\3\1\1\11\5\1\1\11"+
-    "\2\1\3\0\1\1\1\11\5\0\1\11\1\1\3\0"+
-    "\2\1\1\11\2\0\1\1\3\0\1\1\1\0\1\1"+
-    "\2\0\1\1\1\0\1\1\4\0\1\1\1\0";
+    "\4\0\1\1\1\11\6\1\2\11\3\1\1\11\3\1"+
+    "\1\11\1\1\3\0\1\1\6\0\1\1\1\11\4\0"+
+    "\1\11\1\1\1\0\1\1\5\0\1\1\3\0\1\1"+
+    "\1\11\2\1\1\0\1\1\5\0\3\1\1\0\1\11"+
+    "\1\1\3\0\1\1\2\0\1\1\3\0\1\1\2\0"+
+    "\1\1\2\0\1\1\2\0\2\1\1\0\2\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[57];
+    int [] result = new int[93];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -391,7 +424,7 @@ public class _CatdeaLexer implements FlexLexer {
 
 
   /**
-   * Reports an error that occured while scanning.
+   * Reports an error that occurred while scanning.
    *
    * In a wellformed scanner (no or only correct usage of
    * yypushback(int) and a match-all fallback rule) this method
@@ -557,55 +590,55 @@ public class _CatdeaLexer implements FlexLexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { yybegin(IN_MESSAGE);
-            } 
-            // fall through
-          case 13: break;
-          case 2: 
-            { return WHITE_SPACE;
-            } 
-            // fall through
-          case 14: break;
-          case 3: 
-            { return SLASH;
-            } 
-            // fall through
-          case 15: break;
-          case 4: 
-            { return PACKAGE_TOKEN;
-            } 
-            // fall through
-          case 16: break;
-          case 5: 
-            { return COMMENT;
-            } 
-            // fall through
-          case 17: break;
-          case 6: 
-            { return BAD_CHARACTER;
-            } 
-            // fall through
-          case 18: break;
-          case 7: 
             { yybegin(YYINITIAL); return MESSAGE_TOKEN;
             } 
             // fall through
+          case 15: break;
+          case 2: 
+            { yybegin(IN_MESSAGE);
+            } 
+            // fall through
+          case 16: break;
+          case 3: 
+            { return WHITE_SPACE;
+            } 
+            // fall through
+          case 17: break;
+          case 4: 
+            { return COMMENT;
+            } 
+            // fall through
+          case 18: break;
+          case 5: 
+            { return BAD_CHARACTER;
+            } 
+            // fall through
           case 19: break;
+          case 6: 
+            { return SLASH;
+            } 
+            // fall through
+          case 20: break;
+          case 7: 
+            { return PACKAGE_TOKEN;
+            } 
+            // fall through
+          case 21: break;
           case 8: 
             { yybegin(IN_TAG); return LEVEL_TOKEN;
             } 
             // fall through
-          case 20: break;
+          case 22: break;
           case 9: 
             { yybegin(IN_MESSAGE); return COLON;
             } 
             // fall through
-          case 21: break;
+          case 23: break;
           case 10: 
             { return PID_TOKEN;
             } 
             // fall through
-          case 22: break;
+          case 24: break;
           case 11: 
             // lookahead expression with fixed lookahead length
             zzMarkedPos = Character.offsetByCodePoints
@@ -613,12 +646,22 @@ public class _CatdeaLexer implements FlexLexer {
             { return TAG_TOKEN;
             } 
             // fall through
-          case 23: break;
+          case 25: break;
           case 12: 
+            { yypushback(yylength()); yybegin(IN_ENTRY);
+            } 
+            // fall through
+          case 26: break;
+          case 13: 
             { return TIMESTAMP_TOKEN;
             } 
             // fall through
-          case 24: break;
+          case 27: break;
+          case 14: 
+            { return BUFFER;
+            } 
+            // fall through
+          case 28: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }

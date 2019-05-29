@@ -52,24 +52,31 @@ PID_TOKEN=[0-9]+(-|{WHITE_SPACE})[0-9]+
 LEVEL_TOKEN=[VDIWEA](\/|{WHITE_SPACE})
 PACKAGE_TOKEN=[a-z][a-z0-9_]*(\.[a-z0-9_]+)+|"?"
 TAG_TOKEN=(([^:]+)|(:\S))+
-MESSAGE_TOKEN=.+
+MESSAGE_TOKEN=.*
+BUFFER="---------".*
+PATTERN=.*{LEVEL_TOKEN}{TAG_TOKEN}{COLON}
 
+%state IN_ENTRY
 %state IN_TAG
 %state IN_MESSAGE
 
 %%
-{SLASH}                 { return SLASH; }
 
 <YYINITIAL> {
-    ^{COMMENT}              { return COMMENT; }
     {WHITE_SPACE}           { return WHITE_SPACE; }
+    ^{COMMENT}              { return COMMENT; }
+    ^{BUFFER}               { return BUFFER; }
+    ^{PATTERN}              { yypushback(yylength()); yybegin(IN_ENTRY);}
+    [^]                     { yybegin(IN_MESSAGE); }
+}
 
+<IN_ENTRY> {
+    {WHITE_SPACE}           { return WHITE_SPACE; }
     {TIMESTAMP_TOKEN}       { return TIMESTAMP_TOKEN; }
     {PID_TOKEN}             { return PID_TOKEN; }
     {PACKAGE_TOKEN}         { return PACKAGE_TOKEN; }
     {LEVEL_TOKEN}           { yybegin(IN_TAG); return LEVEL_TOKEN; }
-
-    [^]                     { yybegin(IN_MESSAGE); }
+    {SLASH}                 { return SLASH; }
 }
 
 <IN_TAG> {
@@ -78,7 +85,7 @@ MESSAGE_TOKEN=.+
 }
 
 <IN_MESSAGE> {
-    {MESSAGE_TOKEN}|{EOL}         { yybegin(YYINITIAL); return MESSAGE_TOKEN; }
+    {MESSAGE_TOKEN}|{EOL}   { yybegin(YYINITIAL); return MESSAGE_TOKEN; }
 }
 
 [^]  { return BAD_CHARACTER; }

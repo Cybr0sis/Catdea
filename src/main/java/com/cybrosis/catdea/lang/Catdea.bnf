@@ -39,10 +39,17 @@
         PACKAGE_TOKEN
         TAG_TOKEN
         MESSAGE_TOKEN
+        BUFFER
     ]
 }
 
-file ::= entry*
+file ::= (buffer | line)*
+
+private line ::= entry | MESSAGE_TOKEN
+
+buffer ::= BUFFER line* {
+    pin=1
+}
 
 entry ::= header message {
     mixin="com.cybrosis.catdea.lang.psi.impl.PsiCatdeaEntryMixin"
