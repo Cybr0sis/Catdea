@@ -14,33 +14,82 @@ get from [latest release](https://github.com/Cybr0sis/Catdea/releases/latest) an
 
 Features
 ------------
-* Log files support
-* Flexible log format\
-Only _log level_, _tag_ and _message_ are required to provide navigation
-* Navigation from _log_ entry to the _code_ that emit it, and vice versa\
+* ##### Logcat Monitor Tool Window
+In this tool window, you can view and analyze Logcat output with syntax highlighting and navigation to the source code.
+
+![Logcat feature screencast](images/catdea_logcat.gif)
+
+* ##### Navigation 
+Provides navigation from _log entry_ to the _source code_ that emit it, and vice versa.
+
+Click `Navigate` &rarr; `Declaration` menu on log entry to go to the emitter.
+Click `Navigate` &rarr; `Related symbol...` menu on the call in source code, 
+or click gutter icon ![Gutter navigation icon](src/main/resources/icons/gutter.svg) to go to the log entry.
+
 ![Navigation feature screencast](images/navigation.gif)
-* Syntax highlighting and colors settings available
-* Highlighting of log entries\
-![Highlighting feature screencast](images/highlighting.gif)
-* Unused (unmatched) log entries highlighting
-* Folding support\
+
+* ##### Folding
+Collapse and expand log entry's package name or tag.
+Use `Code` &rarr; `Folding` menu or shortcuts.
+
 ![Folding feature screencast](images/folding.gif)
 
-* Log _wrappers_ support\
-Custom classes that _wrap_ `android.util.Log` like the following:\
-![Wrapper class screenshot](images/wrapper_class.png)\
-will be recognized as log emitters:\
-![Wrapper call screenshot](images/wrapper_call.png)
+* ##### Highlighting
+Highlight log entries with the same tag and log entries, that do not match to the code 
 
-* Format strings support\
-![Format string screenshot](images/string_format.png)
+![Highlighting feature screencast](images/highlighting.gif)
 
-* Comment/uncomment log entry
+* ##### Log files support
+Save Logcat output to file with extensions `.log`, `.logcat` or `.logdump` for later analysis in offline mode.
+ 
+* ##### Flexible log format
+Only _log level_, _tag_ and _message_ are required to provide navigation.
 
-* \[NEW!\] Logs in Project-view are grouped\
+* ##### Syntax highlighting and colors settings
+Tune your color preferences (`File` &rarr; `Settings` &rarr; `Editor` &rarr; `Color Scheme` &rarr; `Catdea`).
+
+* ##### Log wrappers support
+Custom classes that _wraps_ Android Log functionality will be recognized as log emitters automatically.
+
+Consider the following class `SecLog`, which is a _wrapper_ on the `android.util.Log`:
+```java
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
+
+public final class SecLog {
+    public static final String TAG = "["+ SecLog.class.getSimpleName() + "]";
+
+    public static void i(@NonNull String tag, @Nullable String msg) {
+        if (msg != null) {
+            Log.i(TAG, tag + ": " + msg);
+        }
+    }
+}
+```
+Then call of `SecLog.i` method like this:
+```java
+SecLog.i(TAG, "onSignup() called with: isSuccess = [" + isSuccess + "]");
+```
+will be recognized as log emitter. 
+
+Gutter icon ![Gutter navigation icon](src/main/resources/icons/gutter.svg) will appear and provide navigation to the log entry.
+If emitter is identified, but there are no log entries matched it - icon ![Gutter not found icon](src/main/resources/icons/gutter_none.svg) will be shown.
+
+* ##### Format strings support
+Catdea is able to identify log emitter that uses `String.format` and others.
+```java
+Log.d(TAG, String.format("generatePassword(%d) = \"%s\"", length, password));
+```
+
+* ##### (Un)comment log entry
+Use `Code` &rarr; `Comment with Line Comment` menu or shortcut on the log entry.
+
+* ##### Logs View in Project-View
+Logs view groups all Logcat dump files into one place for better management. 
 ![Project view screenshot](images/project_view.png)
 
 Changelog
 ------------
-* 1.0.3 Some bugs fixed
+* 1.1 Android Logcat Monitor Tool Window
 * 1.0 Initial release

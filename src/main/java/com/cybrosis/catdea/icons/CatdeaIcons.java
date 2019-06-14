@@ -24,8 +24,10 @@ import javax.swing.*;
  * @author cybrosis
  */
 public class CatdeaIcons {
-    public static final Icon FILE_TYPE = IconLoader.getIcon("/icons/file.svg");
-    public static final Icon FOLDER = IconLoader.getIcon("/icons/folder.svg");
+    public static final Icon FILE_TYPE = IconLoader.getIcon("icons/file.svg");
+    public static final Icon FOLDER = IconLoader.getIcon("icons/folder.svg");
+
+    public static final Icon TOOL = IconLoader.getIcon("icons/tool_window.svg");
 
     public final static class Gutter {
         public static final Icon ICON = IconLoader.getIcon("icons/gutter.svg");
