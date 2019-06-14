@@ -23,14 +23,17 @@ import com.cybrosis.catdea.lang.psi.PsiCatdeaEntry;
 import com.cybrosis.catdea.searches.CatdeaEmitterSearch;
 import com.cybrosis.catdea.searches.CatdeaLogSearch;
 import com.cybrosis.catdea.utils.AndroidLogHelper;
+import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.roots.ex.ProjectRootManagerEx;
 import com.intellij.openapi.util.Ref;
+import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiMethodCallExpression;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.util.CachedValueProvider.Result;
 import com.intellij.psi.util.CachedValuesManager;
+import com.intellij.reference.SoftReference;
 import com.intellij.util.ArrayUtil;
 import com.intellij.util.indexing.FileBasedIndex;
 import org.jetbrains.annotations.NotNull;
@@ -44,29 +47,37 @@ import java.util.Collections;
  */
 public class CatdeaServiceImpl implements CatdeaService, ProjectRootManagerEx.ProjectJdkListener {
     private final Project project;
-    private boolean available;
+    private SoftReference<PsiClass> androidLogClassRef;
 
-    protected CatdeaServiceImpl(@NotNull Project project) {
+    CatdeaServiceImpl(@NotNull Project project) {
         this.project = project;
-
-        projectJdkChanged();
         ProjectRootManagerEx.getInstanceEx(project).addProjectJdkListener(this);
     }
 
     @Override
     public boolean available() {
-        return available;
+        final PsiClass androidLogClass = SoftReference.dereference(androidLogClassRef);
+        if (androidLogClass != null) return true;
+
+        DumbService.getInstance(project).runWhenSmart(() -> {
+            final PsiClass psiClass = AndroidLogHelper.getAndroidLogClass(project);
+            if (psiClass != null) {
+                androidLogClassRef = new SoftReference<>(psiClass);
+            }
+        });
+
+        return SoftReference.dereference(androidLogClassRef) != null;
     }
 
     @Override
     public void projectJdkChanged() {
-        available = AndroidLogHelper.getAndroidLogClass(project) != null;
+        androidLogClassRef.clear();
     }
 
     @Nullable
     @Override
     public CatdeaInfo getInfo(@NotNull PsiMethodCallExpression call) {
-        if (!available) return null;
+        if (!available()) return null;
 
         final String key = CatdeaIndex.getKey(call);
         if (key == null) return null;
@@ -98,7 +109,7 @@ public class CatdeaServiceImpl implements CatdeaService, ProjectRootManagerEx.Pr
     @NotNull
     @Override
     public Collection<PsiMethodCallExpression> findEmittersOf(@NotNull PsiCatdeaEntry entry) {
-        if (!available) return Collections.emptyList();
+        if (!available()) return Collections.emptyList();
 
         return CachedValuesManager.getCachedValue(entry, () -> {
             final Collection<PsiMethodCallExpression> result = CatdeaEmitterSearch
@@ -112,7 +123,7 @@ public class CatdeaServiceImpl implements CatdeaService, ProjectRootManagerEx.Pr
     @Nullable
     @Override
     public Collection<PsiCatdeaEntry> findEmittedLogsBy(@NotNull PsiMethodCallExpression call) {
-        if (!available) return null;
+        if (!available()) return null;
 
         final CatdeaInfo info = getInfo(call);
         if (info == null) return null;
