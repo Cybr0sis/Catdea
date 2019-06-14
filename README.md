@@ -10,7 +10,7 @@ thus, no RegExp patterns required.
 ### Installation
 Install from [JetBrains Plugins Repository](https://plugins.jetbrains.com/plugin/12241-catdea) or 
 get from [latest release](https://github.com/Cybr0sis/Catdea/releases/latest) and choose it in IDE 
-(File &rarr; Settings &rarr; Plugins &rarr; Install Plugin from Disk).
+(`File` &rarr; `Settings` &rarr; `Plugins` &rarr; `Install Plugin from Disk`).
 
 Features
 ------------
@@ -87,6 +87,7 @@ Use `Code` &rarr; `Comment with Line Comment` menu or shortcut on the log entry.
 
 * ##### Logs View in Project-View
 Logs view groups all Logcat dump files into one place for better management. 
+
 ![Project view screenshot](images/project_view.png)
 
 Changelog
