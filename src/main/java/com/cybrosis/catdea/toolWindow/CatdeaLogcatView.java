@@ -27,6 +27,7 @@ import com.android.tools.idea.logcat.LogcatConsoleActionsPostProcessor;
 import com.cybrosis.catdea.highlighting.syntax.CatdeaSyntaxHighlighter;
 import com.cybrosis.catdea.lang.CatdeaLanguage;
 import com.cybrosis.catdea.lang.psi.PsiCatdeaEntry;
+import com.cybrosis.catdea.utils.CompatibilityUtil;
 import com.intellij.execution.impl.ConsoleViewUtil;
 import com.intellij.icons.AllIcons;
 import com.intellij.openapi.Disposable;
@@ -56,12 +57,7 @@ import org.jetbrains.android.util.AndroidBundle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-
 public class CatdeaLogcatView implements Disposable {
-    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm:ss.SSS");
     private static final AnActionEvent FAKE_ACTION_EVENT = new TestActionEvent();
 
     private final Project project;
@@ -236,7 +232,7 @@ public class CatdeaLogcatView implements Disposable {
         final LogCatHeader header = message.getHeader();
         return String.format(
                 "%s %d-%d/%s %s/%s: %s\n",
-                LocalDateTime.ofInstant(header.getTimestampInstant(), ZoneId.systemDefault()).format(TIME_FORMATTER),
+                CompatibilityUtil.LogcatHeader.getTimestamp(header),
                 header.getPid(),
                 header.getTid(),
                 header.getAppName(),
