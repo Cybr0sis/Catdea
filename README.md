@@ -1,5 +1,7 @@
 Catdea Plugin
 ===========
+[![JetBrains plugin version](https://img.shields.io/jetbrains/plugin/v/12241-catdea.svg?color=important)](https://plugins.jetbrains.com/plugin/12241-catdea)
+[![JetBrains plugin download](https://img.shields.io/jetbrains/plugin/d/12241-catdea.svg?color=informational)](https://plugins.jetbrains.com/plugin/12241-catdea)
 
 Catdea Plugin intended to match Android Logcat log entries with the source code that emit them, 
 thereby providing navigation and interactivity, in order to simplify debugging or reverse engineering.
