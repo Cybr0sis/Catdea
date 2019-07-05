@@ -25,7 +25,6 @@ import com.cybrosis.catdea.searches.CatdeaLogSearch;
 import com.cybrosis.catdea.utils.AndroidLogHelper;
 import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ex.ProjectRootManagerEx;
 import com.intellij.openapi.util.Ref;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiFile;
@@ -45,33 +44,31 @@ import java.util.Collections;
 /**
  * @author cybrosis
  */
-public class CatdeaServiceImpl implements CatdeaService, ProjectRootManagerEx.ProjectJdkListener {
+public class CatdeaServiceImpl implements CatdeaService {
     private final Project project;
     private SoftReference<PsiClass> androidLogClassRef;
 
     CatdeaServiceImpl(@NotNull Project project) {
         this.project = project;
-        ProjectRootManagerEx.getInstanceEx(project).addProjectJdkListener(this);
     }
 
     @Override
     public boolean available() {
-        final PsiClass androidLogClass = SoftReference.dereference(androidLogClassRef);
-        if (androidLogClass != null) return true;
+        if (DumbService.getInstance(project).isDumb()) return false;
 
-        DumbService.getInstance(project).runWhenSmart(() -> {
-            final PsiClass psiClass = AndroidLogHelper.getAndroidLogClass(project);
-            if (psiClass != null) {
-                androidLogClassRef = new SoftReference<>(psiClass);
-            }
-        });
+        // Double checked locking
+        PsiClass psiClass = SoftReference.dereference(androidLogClassRef);
+        if (psiClass != null && psiClass.isValid()) return true;
 
-        return SoftReference.dereference(androidLogClassRef) != null;
-    }
+        synchronized (this) {
+            psiClass = SoftReference.dereference(androidLogClassRef);
+            if (psiClass != null && psiClass.isValid()) return true;
 
-    @Override
-    public void projectJdkChanged() {
-        androidLogClassRef.clear();
+            psiClass = AndroidLogHelper.getAndroidLogClass(project);
+            androidLogClassRef = new SoftReference<>(psiClass);
+
+            return psiClass != null && psiClass.isValid();
+        }
     }
 
     @Nullable

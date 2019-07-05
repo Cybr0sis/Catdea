@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.cybrosis.catdea</id>
     <name>Catdea</name>
-    <version>1.1</version>
+    <version>1.1.1</version>
     <vendor email="cybrosis.dev@gmail.com" url="https://github.com/Cybr0sis/Catdea">Cybrosis</vendor>
 
     <description><![CDATA[
@@ -26,6 +26,7 @@
     ]]></description>
 
     <change-notes><![CDATA[
+      <p>1.1.1: Fixed issue#4: NPE occurred in CatdeaServiceImpl.projectJdkChanged</p>
       <p>1.1: Added Logcat Monitor Tool Window</p>
       <p>1.0.4: Added Android buffers for log messages (main, system, crash, etc.) support</p>
       <p>1.0.3: Fixed issue#3: Unexpected SelectInTarget created by CatdeaProjectViewPane</p>
