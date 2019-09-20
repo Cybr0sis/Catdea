@@ -20,7 +20,7 @@ import com.cybrosis.catdea.MockProjectDescriptor;
 import com.intellij.psi.PsiMethodCallExpression;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.testFramework.LightProjectDescriptor;
-import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
+import com.intellij.testFramework.fixtures.LightJavaCodeInsightFixtureTestCase;
 import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
@@ -28,7 +28,7 @@ import org.junit.Test;
 /**
  * @author cybrosis
  */
-public class StringConstantEvaluatorUtilTest extends LightCodeInsightFixtureTestCase {
+public class StringConstantEvaluatorUtilTest extends LightJavaCodeInsightFixtureTestCase {
 
     @NotNull
     @Override

@@ -22,7 +22,7 @@ import org.junit.Test;
 
 import static com.cybrosis.catdea.lang.CatdeaTypes.*;
 import static com.intellij.psi.TokenType.WHITE_SPACE;
-import static org.testng.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 public class CatdeaLexerTest {
 

@@ -21,7 +21,7 @@ import com.cybrosis.catdea.MockProjectDescriptor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.testFramework.LightProjectDescriptor;
-import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
+import com.intellij.testFramework.fixtures.LightJavaCodeInsightFixtureTestCase;
 import com.intellij.util.indexing.FileBasedIndex;
 import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +36,7 @@ import static com.android.ddmlib.Log.LogLevel.INFO;
  * @author cybrosis
  */
 @SuppressWarnings("RegExpRedundantEscape")
-public class CatdeaIndexTest extends LightCodeInsightFixtureTestCase {
+public class CatdeaIndexTest extends LightJavaCodeInsightFixtureTestCase {
 
     @NotNull
     @Override

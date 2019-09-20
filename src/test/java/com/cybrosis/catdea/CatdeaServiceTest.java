@@ -21,7 +21,7 @@ import com.cybrosis.catdea.lang.psi.PsiCatdeaFile;
 import com.cybrosis.catdea.lang.psi.PsiCatdeaVisitor;
 import com.intellij.psi.*;
 import com.intellij.testFramework.LightProjectDescriptor;
-import com.intellij.testFramework.fixtures.LightCodeInsightFixtureTestCase;
+import com.intellij.testFramework.fixtures.LightJavaCodeInsightFixtureTestCase;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
@@ -33,7 +33,7 @@ import java.util.Objects;
 /**
  * @author cybrosis
  */
-public class CatdeaServiceTest extends LightCodeInsightFixtureTestCase {
+public class CatdeaServiceTest extends LightJavaCodeInsightFixtureTestCase {
 
     private static final String CALL_1 = "Log.i(TAG + \"2\", \"foo = \" + x)";
     private static final String CALL_2 = "Logger.info(TAG, \"bar(\" + x + \")\")";
