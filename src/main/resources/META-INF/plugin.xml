@@ -45,8 +45,11 @@
         <projectService serviceInterface="com.cybrosis.catdea.CatdeaService"
                         serviceImplementation="com.cybrosis.catdea.CatdeaServiceImpl"/>
 
-        <fileTypeFactory
-                implementation="com.cybrosis.catdea.files.CatdeaFileTypeFactory"/>
+        <fileType
+                name="Catdea"
+                implementationClass="com.cybrosis.catdea.files.CatdeaFileType"
+                fieldName="INSTANCE"
+                extensions="log;logcat;logdump"/>
 
         <lang.parserDefinition
                 language="CatdeaLanguage"
