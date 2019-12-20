@@ -38,7 +38,7 @@ import java.util.stream.Collectors;
 /**
  * @author cybrosis
  */
-public class CatdeaIndex extends FileBasedIndexExtension<String, Collection<CatdeaIndexEntry>> implements PsiDependentIndex {
+public class CatdeaIndex extends FileBasedIndexExtension<String, Collection<CatdeaIndexEntry>> {
     public static final ID<String, Collection<CatdeaIndexEntry>> INDEX_ID = ID.create("com.cybrosis.catdea.index");
 
     private static final CatdeaIndexer INDEXER = new CatdeaIndexer();
@@ -92,7 +92,7 @@ public class CatdeaIndex extends FileBasedIndexExtension<String, Collection<Catd
 
     @Override
     public int getVersion() {
-        return 2;
+        return 3;
     }
 
     @NotNull

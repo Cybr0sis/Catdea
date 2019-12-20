@@ -20,7 +20,6 @@ import com.intellij.openapi.project.DumbService;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.indexing.DataIndexer;
 import com.intellij.util.indexing.FileContent;
-import com.intellij.util.indexing.FileContentImpl;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -32,11 +31,9 @@ public abstract class PsiDataIndexer<Key, Value> implements DataIndexer<Key, Val
     @NotNull
     @Override
     public Map<Key, Value> map(@NotNull FileContent inputData) {
-        final PsiFile psiFile = ((FileContentImpl) inputData).getPsiFileForPsiDependentIndex();
-
         return DumbService
                 .getInstance(inputData.getProject())
-                .computeWithAlternativeResolveEnabled(() -> map(psiFile));
+                .computeWithAlternativeResolveEnabled(() -> map(inputData.getPsiFile()));
     }
 
     @NotNull

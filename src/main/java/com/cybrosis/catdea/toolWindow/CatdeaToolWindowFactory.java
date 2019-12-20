@@ -16,16 +16,22 @@
 
 package com.cybrosis.catdea.toolWindow;
 
+import com.android.ddmlib.AndroidDebugBridge;
 import com.android.tools.idea.adb.AdbService;
+import com.android.tools.idea.concurrent.EdtExecutor;
 import com.cybrosis.catdea.icons.CatdeaIcons;
-import com.google.common.util.concurrent.MoreExecutors;
+import com.google.common.util.concurrent.FutureCallback;
+import com.google.common.util.concurrent.Futures;
+import com.google.common.util.concurrent.ListenableFuture;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentManager;
 import org.jetbrains.android.sdk.AndroidSdkUtils;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
@@ -48,11 +54,18 @@ public class CatdeaToolWindowFactory implements ToolWindowFactory {
         catdeaLogcatPanel.setLoadingText("Initializing ADB");
         catdeaLogcatPanel.startLoading();
 
-        AdbService.getInstance()
-                .getDebugBridge(adb)
-                .addListener(
-                        catdeaLogcatPanel::stopLoading,
-                        MoreExecutors.directExecutor()
-                );
+        final ListenableFuture<AndroidDebugBridge> future = AdbService.getInstance().getDebugBridge(adb);
+        Futures.addCallback(future, new FutureCallback<AndroidDebugBridge>() {
+            @Override
+            public void onSuccess(@Nullable AndroidDebugBridge bridge) {
+                catdeaLogcatPanel.stopLoading();
+            }
+
+            @Override
+            public void onFailure(@NotNull Throwable t) {
+                catdeaLogcatPanel.stopLoading();
+                Messages.showErrorDialog(AdbService.getDebugBridgeDiagnosticErrorMessage(t, adb), "ADB Connection Error");
+            }
+        }, EdtExecutor.INSTANCE);
     }
 }
