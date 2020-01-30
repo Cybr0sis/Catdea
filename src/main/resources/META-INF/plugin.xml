@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.cybrosis.catdea</id>
     <name>Catdea</name>
-    <version>1.1.3</version>
+    <version>1.1.4</version>
     <vendor email="cybrosis.dev@gmail.com" url="https://github.com/Cybr0sis/Catdea">Cybrosis</vendor>
 
     <description><![CDATA[
@@ -26,6 +26,7 @@
     ]]></description>
 
     <change-notes><![CDATA[
+      <p>1.1.4: Fixed issue#8: IllegalArgumentException in CycledPsiFile</p>
       <p>1.1.3: Compatible with IntelliJ IDEA 2019.3</p>
       <p>1.1.2: Fixed icons and minor refactoring</p>
       <p>1.1.1: Fixed issue#4: NPE occurred in CatdeaServiceImpl.projectJdkChanged</p>

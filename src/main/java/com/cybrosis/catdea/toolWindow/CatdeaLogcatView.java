@@ -24,6 +24,7 @@ import com.android.tools.idea.ddms.DeviceContext;
 import com.android.tools.idea.logcat.AndroidLogcatService;
 import com.android.tools.idea.logcat.AndroidLogcatView;
 import com.android.tools.idea.logcat.LogcatConsoleActionsPostProcessor;
+import com.cybrosis.catdea.files.CatdeaFileType;
 import com.cybrosis.catdea.highlighting.syntax.CatdeaSyntaxHighlighter;
 import com.cybrosis.catdea.lang.CatdeaLanguage;
 import com.cybrosis.catdea.lang.psi.PsiCatdeaEntry;
@@ -131,10 +132,10 @@ public class CatdeaLogcatView implements Disposable {
         this.deviceContext = deviceContext;
 
         // Use PSI to support references and navigation to source code from log entry
-        final PsiFile dummy = PsiFileFactory.getInstance(project).createFileFromText(CatdeaLanguage.INSTANCE, "");
+        final PsiFile dummy = PsiFileFactory.getInstance(project).createFileFromText("_dummy_", CatdeaFileType.INSTANCE, "");
         psiFile = new CycledPsiFile(dummy);
 
-        final Document document = PsiDocumentManager.getInstance(project).getDocument(psiFile);
+        final Document document = dummy.getViewProvider().getDocument();
         assert document != null;
 
         UndoUtil.disableUndoFor(document);
