@@ -115,6 +115,7 @@
                 id="Catdea"
                 facetIdList="android"
                 anchor="bottom"
+                icon="CatdeaIcons.TOOL"
                 factoryClass="com.cybrosis.catdea.toolWindow.CatdeaToolWindowFactory"/>
     </extensions>
 

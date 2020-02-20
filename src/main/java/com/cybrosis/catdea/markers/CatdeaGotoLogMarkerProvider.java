@@ -17,7 +17,7 @@
 package com.cybrosis.catdea.markers;
 
 import com.cybrosis.catdea.CatdeaService;
-import com.cybrosis.catdea.icons.CatdeaIcons;
+import icons.CatdeaIcons;
 import com.cybrosis.catdea.lang.psi.PsiCatdeaEntry;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerInfo;
 import com.intellij.codeInsight.daemon.RelatedItemLineMarkerProvider;

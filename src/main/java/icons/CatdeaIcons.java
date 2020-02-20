@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.cybrosis.catdea.icons;
+package icons;
 
 import com.intellij.openapi.util.IconLoader;
 

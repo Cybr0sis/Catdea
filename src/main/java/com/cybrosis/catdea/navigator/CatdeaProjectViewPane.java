@@ -17,7 +17,7 @@
 package com.cybrosis.catdea.navigator;
 
 import com.android.tools.idea.navigator.AndroidProjectViewPane;
-import com.cybrosis.catdea.icons.CatdeaIcons;
+import icons.CatdeaIcons;
 import com.intellij.ide.SelectInTarget;
 import com.intellij.ide.impl.ProjectViewSelectInTarget;
 import com.intellij.ide.projectView.ViewSettings;

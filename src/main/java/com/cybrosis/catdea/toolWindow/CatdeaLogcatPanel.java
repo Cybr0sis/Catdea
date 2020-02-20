@@ -18,7 +18,7 @@ package com.cybrosis.catdea.toolWindow;
 
 import com.android.tools.idea.ddms.DeviceContext;
 import com.android.tools.idea.ddms.DevicePanel;
-import com.cybrosis.catdea.icons.CatdeaIcons;
+import icons.CatdeaIcons;
 import com.intellij.execution.ui.RunnerLayoutUi;
 import com.intellij.execution.ui.layout.PlaceInGrid;
 import com.intellij.openapi.actionSystem.ActionManager;

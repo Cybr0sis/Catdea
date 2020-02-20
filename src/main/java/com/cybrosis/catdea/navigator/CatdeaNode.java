@@ -17,7 +17,7 @@
 package com.cybrosis.catdea.navigator;
 
 import com.cybrosis.catdea.files.CatdeaFileType;
-import com.cybrosis.catdea.icons.CatdeaIcons;
+import icons.CatdeaIcons;
 import com.intellij.ide.projectView.PresentationData;
 import com.intellij.ide.projectView.ProjectViewNode;
 import com.intellij.ide.projectView.ViewSettings;

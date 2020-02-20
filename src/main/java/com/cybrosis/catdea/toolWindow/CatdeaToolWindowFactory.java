@@ -19,7 +19,6 @@ package com.cybrosis.catdea.toolWindow;
 import com.android.ddmlib.AndroidDebugBridge;
 import com.android.tools.idea.adb.AdbService;
 import com.android.tools.idea.concurrent.EdtExecutor;
-import com.cybrosis.catdea.icons.CatdeaIcons;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -39,8 +38,6 @@ public class CatdeaToolWindowFactory implements ToolWindowFactory {
 
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
-        toolWindow.setIcon(CatdeaIcons.TOOL);
-
         final ContentManager contentManager = toolWindow.getContentManager();
 
         final CatdeaLogcatPanel catdeaLogcatPanel = new CatdeaLogcatPanel(project);

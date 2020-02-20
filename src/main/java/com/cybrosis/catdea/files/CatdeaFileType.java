@@ -16,7 +16,7 @@
 
 package com.cybrosis.catdea.files;
 
-import com.cybrosis.catdea.icons.CatdeaIcons;
+import icons.CatdeaIcons;
 import com.cybrosis.catdea.lang.CatdeaLanguage;
 import com.intellij.openapi.fileTypes.LanguageFileType;
 import org.jetbrains.annotations.NotNull;
