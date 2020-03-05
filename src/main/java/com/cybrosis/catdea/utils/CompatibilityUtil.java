@@ -19,11 +19,13 @@ package com.cybrosis.catdea.utils;
 import com.android.ddmlib.logcat.LogCatHeader;
 import com.android.ddmlib.logcat.LogCatTimestamp;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.Executor;
 
 /**
  * @author cybrosis
@@ -52,6 +54,26 @@ public class CompatibilityUtil {
             }
 
             return LocalDateTime.ofInstant(instant, ZONE).format(FORMATTER);
+        }
+    }
+
+    public static class EdtExecutorService {
+        public static Executor getInstance() {
+            try {
+                final Class<?> clazz = Class.forName("com.intellij.util.concurrency.EdtExecutorService");
+                final Method method = clazz.getDeclaredMethod("getInstance");
+                return (Executor) method.invoke(null);
+            } catch (ReflectiveOperationException ignored) {
+                try {
+                    final Class<?> clazz = Class.forName("com.android.tools.idea.concurrent.EdtExecutor");
+                    final Field field = clazz.getDeclaredField("INSTANCE");
+                    return (Executor) field.get(null);
+                } catch (ReflectiveOperationException e) {
+                    final NoClassDefFoundError error = new NoClassDefFoundError("Either com.intellij.util.concurrency.EdtExecutorService or com.android.tools.idea.concurrent.EdtExecutor should exist");
+                    error.initCause(e);
+                    throw error;
+                }
+            }
         }
     }
 }

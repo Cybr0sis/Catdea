@@ -18,7 +18,7 @@ package com.cybrosis.catdea.toolWindow;
 
 import com.android.ddmlib.AndroidDebugBridge;
 import com.android.tools.idea.adb.AdbService;
-import com.intellij.util.concurrency.EdtExecutorService;
+import com.cybrosis.catdea.utils.CompatibilityUtil.EdtExecutorService;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
