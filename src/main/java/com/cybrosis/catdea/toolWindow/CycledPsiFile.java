@@ -26,6 +26,9 @@ import com.intellij.psi.PsiWhiteSpace;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * @author cybrosis
+ */
 class CycledPsiFile extends PsiFileBase {
     private final PsiFile delegate;
 

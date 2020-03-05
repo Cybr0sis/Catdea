@@ -30,6 +30,9 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
+/**
+ * @author cybrosis
+ */
 public class CatdeaProjectViewPane extends ProjectViewPane {
     public static final String TITLE = "Catdea Logs";
     private static final String ID = "CatdeaLogs";

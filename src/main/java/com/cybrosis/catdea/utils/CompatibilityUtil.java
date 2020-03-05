@@ -25,6 +25,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * @author cybrosis
+ */
 public class CompatibilityUtil {
     public static class LogcatHeader {
         private static final ZoneId ZONE = ZoneId.systemDefault();

@@ -29,6 +29,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Collection;
 import java.util.Collections;
 
+/**
+ * @author cybrosis
+ */
 class CatdeaFileNode extends PsiFileNode {
     CatdeaFileNode(Project project, @NotNull PsiFile psiFile, ViewSettings settings) {
         super(project, psiFile, settings);

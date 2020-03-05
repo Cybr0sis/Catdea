@@ -18,7 +18,7 @@ package com.cybrosis.catdea.toolWindow;
 
 import com.android.ddmlib.AndroidDebugBridge;
 import com.android.tools.idea.adb.AdbService;
-import com.android.tools.idea.concurrent.EdtExecutor;
+import com.intellij.util.concurrency.EdtExecutorService;
 import com.google.common.util.concurrent.FutureCallback;
 import com.google.common.util.concurrent.Futures;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -34,8 +34,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
+/**
+ * @author cybrosis
+ */
 public class CatdeaToolWindowFactory implements ToolWindowFactory {
-
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
         final ContentManager contentManager = toolWindow.getContentManager();
@@ -63,6 +65,6 @@ public class CatdeaToolWindowFactory implements ToolWindowFactory {
                 catdeaLogcatPanel.stopLoading();
                 Messages.showErrorDialog(AdbService.getDebugBridgeDiagnosticErrorMessage(t, adb), "ADB Connection Error");
             }
-        }, EdtExecutor.INSTANCE);
+        }, EdtExecutorService.getInstance());
     }
 }

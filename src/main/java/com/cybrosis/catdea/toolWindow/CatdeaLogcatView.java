@@ -58,6 +58,9 @@ import org.jetbrains.android.util.AndroidBundle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * @author cybrosis
+ */
 public class CatdeaLogcatView implements Disposable {
     private static final AnActionEvent FAKE_ACTION_EVENT = new TestActionEvent();
 

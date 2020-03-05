@@ -30,6 +30,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * @author cybrosis
+ */
 public class CatdeaProjectViewTreeProvider implements TreeStructureProvider {
     @NotNull
     @Override

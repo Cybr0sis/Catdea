@@ -34,6 +34,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * @author cybrosis
+ */
 class CatdeaNode extends ProjectViewNode<String> {
     CatdeaNode(Project project, ViewSettings settings) {
         super(project, CatdeaProjectViewPane.TITLE, settings);

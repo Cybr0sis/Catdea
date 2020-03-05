@@ -34,6 +34,9 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * @author cybrosis
+ */
 public class CatdeaLogcatPanel extends JBLoadingPanel {
     private JPanel panel;
     private final CatdeaLogcatView catdeaLogcatView;
